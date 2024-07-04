@@ -93,9 +93,60 @@ document.getElementById('searchButton').addEventListener('click', () => {
   });
 });
 
+
+document.getElementById('dropdownButton').addEventListener('mouseenter', () => {
+  document.getElementById('dropdownMenu').classList.remove('hidden');
+});
+
+// Hide dropdown menu when mouse leaves the button and dropdown menu
+document.getElementById('dropdownButton').addEventListener('mouseleave', () => {
+  setTimeout(() => {
+    if (!document.getElementById('dropdownMenu').matches(':hover')) {
+      document.getElementById('dropdownMenu').classList.add('hidden');
+    }
+  }, 200);
+});
+
+document.getElementById('dropdownMenu').addEventListener('mouseleave', () => {
+  setTimeout(() => {
+    if (!document.getElementById('dropdownButton').matches(':hover')) {
+      document.getElementById('dropdownMenu').classList.add('hidden');
+    }
+  }, 200);
+});
+
+// Prevent dropdown menu from disappearing when mouse is over it
+document.getElementById('dropdownMenu').addEventListener('mouseenter', () => {
+  document.getElementById('dropdownMenu').classList.remove('hidden');
+});
+
+// Handle category selection
+document.querySelectorAll('#dropdownMenu a').forEach(link => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    const category = event.target.getAttribute('data-category');
+    const query = category === 'All categories' ? '' : category;
+    document.getElementById('dropdownButton').innerHTML = `${category}
+      <svg class="h-5 w-5 text-gray-400 ml-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd"
+          d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
+          clip-rule="evenodd" />
+      </svg>`;
+
+    loadCSV('items.csv', data => {
+      const inventory = parseCSV(data);
+      const filteredItems = filterItems(inventory, query);
+      displayItems(filteredItems);
+    });
+
+    document.getElementById('dropdownMenu').classList.add('hidden');
+  });
+});
+
 // Initial load 
 loadCSV('items.csv', (data) => {
   const inventory = parseCSV(data);
   displayItems(inventory);
 });
+
 
