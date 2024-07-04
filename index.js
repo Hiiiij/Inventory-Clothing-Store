@@ -1,56 +1,36 @@
-loadCSV('items.csv', (data) => {
-  const inventory = parseCSV(data);
-  //do anything with data here
-  displayItems(inventory)
-  console.log(inventory)
-});
+const cart = [];
 
-function loadCSV(url, callback) {
-  fetch(url)
-      .then(response => response.text())
-      .then(data => callback(data))
-      .catch(error => console.error('Error loading CSV file:', error));
-}
+// const displayCart = (cart) => {
+//   const listItems = document.getElementById('cartItems');
+//   listItems.innerHTML = '';
 
-function parseCSV(data) {
-  const lines = data.split('\n');
-  const headers = lines[0].split(',').map(header => header.trim());
-  const items = [];
+//   cart.map((item) => {
+//     const oneItem = document.createElement('li');
+//     oneItem.textContent = item;
+//     listItems.appendChild(oneItem);
+//   });
+// };
 
-  for (let i = 1; i < lines.length; i++) {
-      const line = lines[i].split(',');
-      if (line.length === headers.length) {
-          const item = {};
-          headers.forEach((header, index) => {
-              item[header] = line[index].trim();
-          });
-          items.push(item);
-      }
-  }
-  return items;
-}
-
-const displayItems = (array) => {
-  const displayList = document.getElementById('display-list') // div element in html file
-  displayList.innerHTML = ''
+const addToCart = (newItem) => {
+  let itemFound = cart.find((item) => item.id === newItem.id)
+  console.log('itemFound', itemFound);
   
-  array.map(item => {
-    const card = document.createElement('div')
-    const image = document.createElement('img')
-    const name = document.createElement('p')
-    const category = document.createElement('p')
-    const color = document.createElement('p')
-    const size = document.createElement('p')
-    const price = document.createElement('p')
+    if (itemFound) {
+      itemFound.quatity++;
+      itemFound.subTotal += Number(newItem.price);
+    } else {
+      let quatity = 1;
+      let subTotal = +newItem.price * quatity;
+    
+      cart.push({ ...newItem, quatity: quatity, subTotal: subTotal });
+      console.log('new item added');
+    }
 
-    image.innerText = 'add the src'
-    name.innerText = item.name
-    category.innerText = item.category
-    color.innerText = item.color
-    size.innerText = item.size
-    price.innerText = item.price
+  // displayCart(cart);
+};
 
-    card.appendChild(name).appendChild(category).appendChild(color).appendChild(size).appendChild(price)
-    displayList.appendChild(card)
-  })
-}
+addToCart({ id: 1, name: 'shoe', price: '19.99' });
+addToCart({ id: 2, name: 'sh', price: '19.99' });
+addToCart({ id: 1, name: 'shoe', price: '19.99' });
+console.log(cart);
+console.log(cart.keys());
