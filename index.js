@@ -77,12 +77,54 @@ function displayItems(array) {
   });
 }
 
+
 function filterItems(items, query) {
   return items.filter(item =>
     item.name.toLowerCase().includes(query.toLowerCase()) ||
     item.category.toLowerCase().includes(query.toLowerCase())
   );
 }
+
+//filter by gender
+function filterByGender(items, gender) {
+  if (gender === 'Men') {
+    return items.filter(item => item.name.toLowerCase().includes("men's") || item.name.toLowerCase().includes("man's"));
+  } else if (gender === 'Women') {
+    return items.filter(item => item.name.toLowerCase().includes("women's") || item.name.toLowerCase().includes("woman's"));
+  } else {
+    return items; // Return all items if gender is not specified (or any other value)
+  }
+}
+
+// Function to load CSV data and display items
+function loadAndDisplayItems(url) {
+  loadCSV(url, data => {
+    const inventory = parseCSV(data);
+    displayItems(inventory);
+  });
+}
+
+// Initial load of all items from CSV
+loadAndDisplayItems('items.csv');
+
+// Handle click events on gender filter buttons
+document.querySelectorAll('[data-gender]').forEach(button => {
+  button.addEventListener('click', () => {
+    const gender = button.getAttribute('data-gender');
+
+    loadAndDisplayItems('items.csv'); // Load and display all items on initial click
+
+    // Apply gender filter if gender is specified
+    if (gender === 'Men' || gender === 'Women') {
+      loadCSV('items.csv', data => {
+        const inventory = parseCSV(data);
+        const filteredItems = filterByGender(inventory, gender);
+        displayItems(filteredItems);
+      });
+    }
+  });
+});
+
 
 document.getElementById('searchButton').addEventListener('click', () => {
   const query = document.getElementById('searchBar').value;
