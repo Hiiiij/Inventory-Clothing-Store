@@ -183,7 +183,7 @@ const displayCart = (cart) => {
   const cartItems = document.getElementById('cart');
   cartItems.innerHTML = '';
 
-  cart.map((item, index) => {
+  cart.map(item => {
     const oneItemInfo = document.createElement('div');
     const oneItemPrice = document.createElement('div');
     const oneItemQuantity = document.createElement('div');
@@ -203,6 +203,7 @@ const displayCart = (cart) => {
 };
 
 displayCart(cart);
+displayTotal()
 
 // When click 'Cart Icon'
 const sumCartItems = (array = []) => {
@@ -221,8 +222,7 @@ const addToCart = (newItem) => {
     let subTotal = +newItem.price * quantity;
     cart.push({ ...newItem, quantity: quantity, subTotal: subTotal });
   }
-  console.log(cart);
-  displayCart(cart);
+  // displayCart(cart);
 };
 
 
