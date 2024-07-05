@@ -224,9 +224,9 @@ displayTotal()
 const sumCartItems = (array) => {
   const total = array.reduce((total, currentItem) => (
     (total || 0) + currentItem.subTotal)
-  , 0);
-  return total
-};
+    , 0);
+    return total
+  };
 
 const displayTotal = () => {
   const total = document.getElementById('total-price')
