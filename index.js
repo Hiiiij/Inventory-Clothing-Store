@@ -25,16 +25,11 @@ function parseCSV(data) {
 
 function displayItems(array) {
   const displayList = document.getElementById('display-list');
-  displayList.innerHTML = ''; 
+  displayList.innerHTML = '';
 
   array.forEach(item => {
     const card = document.createElement('div');
     card.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md');
-
-    const image = document.createElement('img');
-    image.classList.add('h-auto', 'max-w-full', 'rounded-lg');
-    image.src = item.image;
-    image.alt = item.name;
 
     const id = document.createElement('p');
     id.classList.add('text-lg', 'font-bold', 'mb-2');
@@ -64,7 +59,6 @@ function displayItems(array) {
     btn.classList.add('text-lg', 'font-bold', 'mb-2');
     btn.innerText = "Buy now";
 
-    card.appendChild(image);
     card.appendChild(id);
     card.appendChild(name);
     card.appendChild(category);
@@ -77,7 +71,6 @@ function displayItems(array) {
   });
 }
 
-
 function filterItems(items, query) {
   return items.filter(item =>
     item.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -85,22 +78,48 @@ function filterItems(items, query) {
   );
 }
 
-//filter by gender
 function filterByGender(items, gender) {
   if (gender === 'Men') {
-    return items.filter(item => item.name.toLowerCase().includes("men's") || item.name.toLowerCase().includes("man's"));
-  } else if (gender === 'Women') {
-    return items.filter(item => item.name.toLowerCase().includes("women's") || item.name.toLowerCase().includes("woman's"));
+    return items.filter(item => item.name.toLowerCase().includes("men's"));
+  }
+  if (gender === 'Women') {
+    return items.filter(item => item.name.toLowerCase().includes("women's"));
+  }
+  return items;
+}
+
+
+function filterByCategory(items, category) {
+  if (category === 'All categories') {
+    return items;
   } else {
-    return items; // Return all items if gender is not specified (or any other value)
+    return items.filter(item => item.category.toLowerCase() === category.toLowerCase());
   }
 }
 
-// Function to load CSV data and display items
-function loadAndDisplayItems(url) {
+function applyFilters(items, gender, category, query) {
+  let filteredItems = items;
+
+  if (gender) {
+    filteredItems = filterByGender(filteredItems, gender);
+  }
+
+  if (category) {
+    filteredItems = filterByCategory(filteredItems, category);
+  }
+
+  if (query) {
+    filteredItems = filterItems(filteredItems, query);
+  }
+
+  return filteredItems;
+}
+
+function loadAndDisplayItems(url, gender = null, category = null, query = null) {
   loadCSV(url, data => {
     const inventory = parseCSV(data);
-    displayItems(inventory);
+    const filteredItems = applyFilters(inventory, gender, category, query);
+    displayItems(filteredItems);
   });
 }
 
@@ -111,36 +130,28 @@ loadAndDisplayItems('items.csv');
 document.querySelectorAll('[data-gender]').forEach(button => {
   button.addEventListener('click', () => {
     const gender = button.getAttribute('data-gender');
+    const category = document.getElementById('dropdownButton').textContent.trim();
+    const query = document.getElementById('searchBar').value;
 
-    loadAndDisplayItems('items.csv'); // Load and display all items on initial click
+    document.querySelectorAll('[data-gender]').forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
 
-    // Apply gender filter if gender is specified
-    if (gender === 'Men' || gender === 'Women') {
-      loadCSV('items.csv', data => {
-        const inventory = parseCSV(data);
-        const filteredItems = filterByGender(inventory, gender);
-        displayItems(filteredItems);
-      });
-    }
+    loadAndDisplayItems('items.csv', gender, category !== 'All categories' ? category : null, query);
   });
 });
-
 
 document.getElementById('searchButton').addEventListener('click', () => {
   const query = document.getElementById('searchBar').value;
-  loadCSV('items.csv', data => {
-    const inventory = parseCSV(data);
-    const filteredItems = filterItems(inventory, query);
-    displayItems(filteredItems);
-  });
-});
+  const gender = document.querySelector('[data-gender].active')?.getAttribute('data-gender') || null;
+  const category = document.getElementById('dropdownButton').textContent.trim();
 
+  loadAndDisplayItems('items.csv', gender, category !== 'All categories' ? category : null, query);
+});
 
 document.getElementById('dropdownButton').addEventListener('mouseenter', () => {
   document.getElementById('dropdownMenu').classList.remove('hidden');
 });
 
-// Hide dropdown menu when mouse leaves the button and dropdown menu
 document.getElementById('dropdownButton').addEventListener('mouseleave', () => {
   setTimeout(() => {
     if (!document.getElementById('dropdownMenu').matches(':hover')) {
@@ -167,7 +178,6 @@ document.querySelectorAll('#dropdownMenu a').forEach(link => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
     const category = event.target.getAttribute('data-category');
-    const query = category === 'All categories' ? '' : category;
     document.getElementById('dropdownButton').innerHTML = `${category}
       <svg class="h-5 w-5 text-gray-400 ml-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fill-rule="evenodd"
@@ -175,20 +185,16 @@ document.querySelectorAll('#dropdownMenu a').forEach(link => {
           clip-rule="evenodd" />
       </svg>`;
 
-    loadCSV('items.csv', data => {
-      const inventory = parseCSV(data);
-      const filteredItems = filterItems(inventory, query);
-      displayItems(filteredItems);
-    });
+    const gender = document.querySelector('[data-gender].active')?.getAttribute('data-gender') || null;
+    const query = document.getElementById('searchBar').value;
+
+    loadAndDisplayItems('items.csv', gender, category !== 'All categories' ? category : null, query);
 
     document.getElementById('dropdownMenu').classList.add('hidden');
   });
 });
 
-// Initial load 
-loadCSV('items.csv', (data) => {
-  const inventory = parseCSV(data);
-  displayItems(inventory);
-});
+
+
 
 
