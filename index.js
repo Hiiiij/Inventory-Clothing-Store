@@ -52,7 +52,7 @@ function displayItems(array) {
     size.innerText = `Size: ${item.size}`;
 
     const price = document.createElement('p');
-    price.classList.add('text-green-500', 'font-bold');
+    price.classList.add('text-purple-500', 'font-bold');
     price.innerText = `Price: $${item.price}`;
 
     const btn = document.createElement('button');
@@ -249,7 +249,91 @@ document.querySelectorAll('#dropdownMenu a').forEach(link => {
   });
 });
 
+const products = [
+  { id: 1, name: 'Throwback Hip Bag', price: 90.00, imageUrl: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg' },
+  { id: 2, name: 'Medium Stuff Satchel', price: 32.00, imageUrl: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg' }
+  // Add more products as needed
+];
 
+// const cart = [];
 
+// Function to render products
+function renderProducts() {
+  const productList = document.getElementById('productList');
+  productList.innerHTML = '';
 
+  products.forEach(product => {
+    const card = document.createElement('div');
+    card.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md');
 
+    const image = document.createElement('img');
+    image.src = product.imageUrl;
+    image.alt = product.name;
+    image.classList.add('h-48', 'w-full', 'object-cover', 'object-center', 'mb-4');
+
+    const name = document.createElement('p');
+    name.classList.add('text-lg', 'font-bold', 'mb-2');
+    name.textContent = product.name;
+
+    const price = document.createElement('p');
+    price.classList.add('text-purple-500', 'font-bold');
+    price.textContent = `$${product.price}`;
+
+    const addToCartBtn = document.createElement('button');
+    addToCartBtn.classList.add('mt-4', 'block', 'w-full', 'bg-indigo-600', 'hover:bg-indigo-700', 'text-white', 'px-4', 'py-2', 'rounded-md', 'text-center', 'font-semibold', 'focus:outline-none');
+    addToCartBtn.textContent = 'Add to Cart';
+    addToCartBtn.addEventListener('click', () => addToCart(product));
+
+    card.appendChild(image);
+    card.appendChild(name);
+    card.appendChild(price);
+    card.appendChild(addToCartBtn);
+
+    productList.appendChild(card);
+  });
+}
+
+// Function to add product to cart
+cart.forEach(item => {
+  const cartItem = document.createElement('div');
+  cartItem.classList.add('flex', 'items-center', 'justify-between', 'border-b', 'border-gray-200', 'py-4');
+
+  const itemDetails = document.createElement('div');
+  itemDetails.classList.add('flex', 'items-center', 'space-x-4');
+
+  const image = document.createElement('img');
+  image.src = item.imageUrl;
+  image.alt = item.name;
+  image.classList.add('h-12', 'w-12', 'object-cover', 'rounded-md');
+
+  const itemName = document.createElement('span');
+  itemName.classList.add('text-lg', 'font-medium', 'text-gray-900');
+  itemName.textContent = item.name;
+
+  const itemPrice = document.createElement('span');
+  itemPrice.classList.add('text-gray-500');
+  itemPrice.textContent = `$${item.price.toFixed(2)}`;
+
+  const itemQuantity = document.createElement('span');
+  itemQuantity.classList.add('text-gray-500');
+  itemQuantity.textContent = `x${item.quantity}`;
+
+  itemDetails.appendChild(image);
+  itemDetails.appendChild(itemName);
+  itemDetails.appendChild(itemPrice);
+  itemDetails.appendChild(itemQuantity);
+
+  const removeBtn = document.createElement('button');
+  removeBtn.classList.add('text-red-500', 'hover:text-red-700');
+  removeBtn.textContent = 'Remove';
+  removeBtn.addEventListener('click', () => removeFromCart(item.id));
+
+  cartItem.appendChild(itemDetails);
+  cartItem.appendChild(removeBtn);
+
+  cartItems.appendChild(cartItem);
+
+  subtotal += item.price * item.quantity;
+});
+
+document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
