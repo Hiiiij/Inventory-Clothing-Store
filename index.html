@@ -12,49 +12,99 @@
 
 <body class="bg-gray-200">
   <div class="flex justify-center p-12" style="min-height: 600px">
-
+<!-- shopping cart -->
     <div class="w-full max-w-4xl">
+      <div class="relative py-2">
+        <div class="t-0 absolute left-3">
+          <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">3</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="file: mt-4 h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+        </svg>
+      </div>
+
       <header class="mb-8 text-center">
         <h1 class="text-3xl font-bold">Clothing Store Inventory</h1>
       </header>
 
-
-      <div id="search" class="flex flex-wrap justify-between md:flex-row mb-4">
-        <input type="search" id="searchBar" name="query" placeholder="Search by name or category" required
-          class="flex-1 h-10 px-4 m-1 text-gray-700 placeholder-gray-400 bg-pink border-none appearance-none lg:h-12 dark:text-gray-400 focus:outline-none focus:placeholder-transparent focus:ring-0">
-        <button type="button" id="searchButton"
-          class="bg-blue-500 hover:bg-blue-700 text-white flex items-center justify-center w-full p-2 m-1 transition-colors duration-300 transform rounded-lg lg:w-12 lg:h-12 lg:p-0 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-        </button>
-      </div>
-  
-
-      <!-- //top pill buttons -->
-      </button>
-
       <body class="bg-gray-100 p-8">
 
-        <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
-          <button type="button"
-            class="text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800">All
-            categories</button>
-          <button type="button"
-            class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Men</button>
-          <button type="button"
-            class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Woman</button>
+        <!-- search fliter -->
+        <div id="search" class="flex flex-wrap justify-between md:flex-row mb-4">
+          <input type="search" id="searchBar" name="query" placeholder="Search by name or category"
+            class="flex-1 h-10 px-4 m-1 text-gray-700 placeholder-gray-400  border-none appearance-none lg:h-12 dark:text-gray-400 focus:outline-none focus:placeholder-transparent focus:ring-0">
+          <button type="button" id="searchButton"
+            class="bg-purple-500 hover:bg-purple-700 text-white flex items-center justify-center w-full p-2 m-1 transition-colors duration-300 transform rounded-lg lg:w-12 lg:h-12 lg:p-0 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- buttons for cathegory search --> -
+        <div class="flex items-center justify-center py-4 md:py-8 md:px-12 flex-wrap">
+
+
+
+          <button type="button"  data-gender="Women"
+            class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-md text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Woman</button>
+
+          <button type="button" data-gender="Men"
+            class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-md text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Men</button>
+
+
+
+          <div class="relative">
+            <button type="button" id="dropdownButton"
+              class="text-black-700 hover:text-white border bg-white hover:bg-purple-500 focus:ring-2 focus:outline-none focus:ring-purple-900 rounded-md text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:hover:text-white dark:hover:bg-purple-700 dark:bg-gray-900 dark:focus:ring-purple-900 flex items-center">
+              All categories
+              <svg class="h-5 w-5 text-gray-400 ml-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
+                  clip-rule="evenodd" />
+              </svg>
+            </button>
+
+
+            <div id="dropdownMenu"
+              class="hidden absolute bg-white text-base z-50 list-none divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2" aria-labelledby="dropdownButton">
+                <li><a href="#" data-category="All categories"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Show
+                    All Products</a></li>
+                <li><a href="#" data-category="Tops"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Tops</a>
+                </li>
+                <li><a href="#" data-category="Bottoms"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Bottoms</a>
+                </li>
+                <li><a href="#" data-category="Outerwear"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Outerwear</a>
+                </li>
+                <li><a href="#" data-category="Fragrance"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Fragrances</a>
+                </li>
+                <li><a href="#" data-category="Accessories"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Accesories</a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+<div id ="cart"></div>
+
+          <div id="display-list" class="grid grid-cols-2 md:grid-cols-3 gap-4 py-12">
+
+          </div>
         </div>
 
-        <div id="display-list" class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        </div>
+
     </div>
-
-  </div>
 </body>
 
 </html>
-
-
- 
