@@ -192,19 +192,9 @@ const displayCart = (cart) => {
 displayCart(cart);
 
 // When click 'Cart Icon'
-const sumCartItems = (array) => {
-  const total = array.reduce((total, currentItem) => (
-    (total || 0) + currentItem.subTotal)
-    , 0);
-    return total
-  };
-
-const displayTotal = () => {
-  const total = document.getElementById('total-price')
-  total.innerText = sumCartItems(cart)
-}
-
-displayTotal()
+const sumCartItems = (array = []) => {
+  return array.length !=0? array.reduce((a, b) => a.subTotal + b.subTotal): 0;
+};
 
 // when click 'Buy now'
 
@@ -229,7 +219,7 @@ console.log(cart);
 const total = sumCartItems(cart);
 console.log(total);
 sumCartItems(cart);
-document.getElementById('dropdownButton').addEventListener('mouseenter', () => { 
+document.getElementById('dropdownButton').addEventListener('mouseenter', () => {
   console.log("mouse enter")
   document.getElementById('dropdownMenu').classList.remove('hidden');
 });
@@ -241,7 +231,7 @@ document.getElementById('dropdownButton').addEventListener('mouseleave', () => {
       document.getElementById('dropdownMenu').classList.add('hidden');
     }
   }, 200);
- });
+});
 
 console.log("mouse enter")
 document.getElementById('dropdownMenu').addEventListener('mouseleave', () => {
