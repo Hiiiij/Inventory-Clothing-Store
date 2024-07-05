@@ -133,7 +133,7 @@ function loadAndDisplayItems(url, gender = null, category = null, query = null) 
     const inv = parseCSV(data);
     const filteredItems = applyFilters(inv, gender, category, query);
     displayItems(filteredItems);
-    inventory = filterItems
+    inventory = filteredItems
   });
 }
 
@@ -198,22 +198,19 @@ const sumCartItems = (array = []) => {
 
 // when click 'Buy now'
 
-// const addToCart = (newItem) => {
-//   console.log('clicked', newItem);
-//   let itemFound = cart.findIndex((item) => item.id === newItem);
-//   let inventoryItem = inventory.findIndex((item) => item.id === newItem);
-//   console.log(itemFound);
+const addToCart = (newItem) => { // it is a number, not the object
+  let itemFound = cart.findIndex((item) => item.id === newItem); 
+  let inventoryItem = inventory.find((item) => item.id === newItem);
 
-//   if (itemFound !== -1) {
-//     cart[itemFound] = {...cart[itemFound], quantity: cart[itemFound].quantity+1, subTotal: cart[itemFound].subTotal + inventoryItem.price}
-//   } else {
-//     let quantity = 1;
-    
-//     cart.push({ ...inventoryItem, quantity: quantity, subTotal: inventoryItem.subTotal });
-//   }
-//   console.log(cart);
-//   displayCart(cart);
-// };
+  if (itemFound !== -1) {
+    cart[itemFound] = {...cart[itemFound], quantity: cart[itemFound].quantity+1, subTotal: cart[itemFound].subTotal += Number(inventoryItem.price)}
+  } else {
+    let quantity = 1;    
+    cart.push({ ...inventoryItem, quantity: quantity, subTotal: Number(inventoryItem.price) });
+  }
+  console.log(cart);
+  displayCart(cart);
+};
 
 console.log(cart);
 const total = sumCartItems(cart);
