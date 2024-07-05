@@ -250,7 +250,8 @@ const addToCart = (newItem) => { // it is a number, not the object
     let quantity = 1;    
     cart.push({ ...inventoryItem, quantity: quantity, subTotal: Number(inventoryItem.price) });
   }
-  // displayCart(cart);
+  console.log(cart);
+  displayCart(cart);
 };
 
 
