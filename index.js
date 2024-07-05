@@ -138,7 +138,7 @@ function loadAndDisplayItems(url, gender = null, category = null, query = null) 
     const inv = parseCSV(data);
     const filteredItems = applyFilters(inv, gender, category, query);
     displayItems(filteredItems);
-    inventory = filterItems
+    inventory = filteredItems
   });
 }
 
@@ -226,18 +226,19 @@ const sumCartItems = (array = []) => {
 };
 
 // when click 'Buy now'
-const addToCart = (newItem) => {
-  let itemFound = cart.find((item) => item.id === newItem.id);
 
-  if (itemFound) {
-    itemFound.quantity++;
-    itemFound.subTotal += Number(newItem.price);
+const addToCart = (newItem) => { // it is a number, not the object
+  let itemFound = cart.findIndex((item) => item.id === newItem); 
+  let inventoryItem = inventory.find((item) => item.id === newItem);
+
+  if (itemFound !== -1) {
+    cart[itemFound] = {...cart[itemFound], quantity: cart[itemFound].quantity+1, subTotal: cart[itemFound].subTotal += Number(inventoryItem.price)}
   } else {
-    let quantity = 1;
-    let subTotal = +newItem.price * quantity;
-    cart.push({ ...newItem, quantity: quantity, subTotal: subTotal });
+    let quantity = 1;    
+    cart.push({ ...inventoryItem, quantity: quantity, subTotal: Number(inventoryItem.price) });
   }
-  // displayCart(cart);
+  console.log(cart);
+  displayCart(cart);
 };
 
 
