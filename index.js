@@ -221,6 +221,19 @@ displayCart(cart);
 displayTotal()
 
 // When click 'Cart Icon'
+const sumCartItems = (array) => {
+  const total = array.reduce((total, currentItem) => (
+    (total || 0) + currentItem.subTotal)
+  , 0);
+  return total
+};
+
+const displayTotal = () => {
+  const total = document.getElementById('total-price')
+  total.innerText = sumCartItems(cart)
+}
+
+displayTotal()
 const sumCartItems = (array = []) => {
   return array.length != 0 ? array.reduce((a, b) => a.subTotal + b.subTotal) : 0;
 };
@@ -237,8 +250,7 @@ const addToCart = (newItem) => { // it is a number, not the object
     let quantity = 1;    
     cart.push({ ...inventoryItem, quantity: quantity, subTotal: Number(inventoryItem.price) });
   }
-  console.log(cart);
-  displayCart(cart);
+  // displayCart(cart);
 };
 
 
