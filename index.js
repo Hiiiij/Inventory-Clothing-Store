@@ -177,8 +177,8 @@ const displayCart = (cart) => {
 displayCart(cart);
 
 // When click 'Cart Icon'
-const sumCartItems = (array) => {
-  return cart.reduce((a, b) => a.subTotal + b.subTotal);
+const sumCartItems = (array = []) => {
+  return array.length !=0? array.reduce((a, b) => a.subTotal + b.subTotal): 0;
 };
 
 // when click 'Buy now'
@@ -200,7 +200,7 @@ const addToCart = (newItem) => {
 
 
 sumCartItems(cart);
-document.getElementById('dropdownButton').addEventListener('mouseenter', () => { 
+document.getElementById('dropdownButton').addEventListener('mouseenter', () => {
   console.log("mouse enter")
   document.getElementById('dropdownMenu').classList.remove('hidden');
 });
@@ -212,7 +212,7 @@ document.getElementById('dropdownButton').addEventListener('mouseleave', () => {
       document.getElementById('dropdownMenu').classList.add('hidden');
     }
   }, 200);
- });
+});
 
 console.log("mouse enter")
 document.getElementById('dropdownMenu').addEventListener('mouseleave', () => {
