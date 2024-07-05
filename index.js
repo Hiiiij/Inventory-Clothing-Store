@@ -39,31 +39,32 @@ function displayItems(array) {
     id.classList.add('text-lg', 'font-bold', 'mb-2', 'hidden');
 
     id.innerText = item.id;
-
+    
     const name = document.createElement('p');
     name.classList.add('text-lg', 'font-bold', 'mb-2');
     name.innerText = item.name;
-
+    
     const category = document.createElement('p');
     category.classList.add('text-gray-700', 'mb-2');
     category.innerText = `Category: ${item.category}`;
-
+    
     const color = document.createElement('p');
     color.classList.add('text-gray-700', 'mb-2');
     color.innerText = `Color: ${item.color}`;
-
+    
     const size = document.createElement('p');
     size.classList.add('text-gray-700', 'mb-2');
     size.innerText = `Size: ${item.size}`;
-
+    
     const price = document.createElement('p');
     price.classList.add('text-purple-500', 'font-bold');
     price.innerText = `Price: $${item.price}`;
-
+    
     const btn = document.createElement('button');
-    btn.classList.add('text-lg', 'font-bold', 'mb-2');
+    btn.classList.add('text-lg', 'font-bold', 'mb-2', 'buy-now');
+    btn.id = item.id;
     btn.innerText = "Buy now";
-
+    
     card.appendChild(id);
     card.appendChild(name);
     card.appendChild(category);
@@ -71,9 +72,19 @@ function displayItems(array) {
     card.appendChild(size);
     card.appendChild(price);
     card.appendChild(btn);
-
+    
     displayList.appendChild(card);
+
   });
+
+  const buyNow = document.getElementsByClassName('buy-now')
+
+  for (var i = 0; i < buyNow.length; i++) {
+    const id = buyNow[i].id
+    buyNow[i].addEventListener('click', (event) => {
+      addToCart(id)
+    })
+}
 }
 
 function filterItems(items, query) {
@@ -120,11 +131,14 @@ function applyFilters(items, gender, category, query) {
   return filteredItems;
 }
 
+let inventory = []
+
 function loadAndDisplayItems(url, gender = null, category = null, query = null) {
   loadCSV(url, data => {
-    const inventory = parseCSV(data);
-    const filteredItems = applyFilters(inventory, gender, category, query);
+    const inv = parseCSV(data);
+    const filteredItems = applyFilters(inv, gender, category, query);
     displayItems(filteredItems);
+    inventory = filterItems
   });
 }
 
@@ -182,23 +196,24 @@ const cart = [];
 const displayCart = (cart) => {
   const cartItems = document.getElementById('cart');
   cartItems.innerHTML = '';
-
+  
   cart.map(item => {
     const oneItemInfo = document.createElement('div');
     const oneItemPrice = document.createElement('div');
     const oneItemQuantity = document.createElement('div');
     const oneItemSubtotal = document.createElement('div');
-
+    
     oneItemInfo.textContent = `${item.name}, ${item.category}, ${item.color}, ${item.size}`;
     oneItemPrice.textContent = `${item.price}`;
     oneItemQuantity.textContent = `${item.quantity}`;
     oneItemSubtotal.textContent = `${item.subTotal}`;
-
+    
     cartItems
-      .appendChild(oneItemInfo)
-      .appendChild(oneItemPrice)
-      .appendChild(oneItemQuantity)
-      .appendChild(oneItemSubtotal);
+    .appendChild(oneItemInfo)
+    .appendChild(oneItemPrice)
+    .appendChild(oneItemQuantity)
+    .appendChild(oneItemSubtotal);
+
   });
 };
 
