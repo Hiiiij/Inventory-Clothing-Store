@@ -5,7 +5,7 @@ const displayCart = (cart) => {
   const cartItems = document.getElementById('cart');
   cartItems.innerHTML = '';
 
-  cart.map((item, index) => {
+  cart.map(item => {
     const oneItemInfo = document.createElement('div');
     const oneItemPrice = document.createElement('div');
     const oneItemQuantity = document.createElement('div');
@@ -25,11 +25,22 @@ const displayCart = (cart) => {
 };
 
 displayCart(cart);
+displayTotal()
 
 // When click 'Cart Icon'
 const sumCartItems = (array) => {
-  return cart.reduce((a, b) => a.subTotal + b.subTotal);
+  const total = array.reduce((total, currentItem) => (
+    (total || 0) + currentItem.subTotal)
+  , 0);
+  return total
 };
+
+const displayTotal = () => {
+  const total = document.getElementById('total-price')
+  total.innerText = sumCartItems(cart)
+}
+
+displayTotal()
 
 // when click 'Buy now'
 const addToCart = (newItem) => {
@@ -43,8 +54,7 @@ const addToCart = (newItem) => {
     let subTotal = +newItem.price * quantity;
     cart.push({ ...newItem, quantity: quantity, subTotal: subTotal });
   }
-  console.log(cart);
-  displayCart(cart);
+  // displayCart(cart);
 };
 
 addToCart({
@@ -80,4 +90,6 @@ addToCart({
   price: '19.99',
 });
 
-sumCartItems(cart);
+console.log(cart);
+const total = sumCartItems(cart);
+console.log(total);
