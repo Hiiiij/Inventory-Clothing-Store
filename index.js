@@ -250,12 +250,12 @@ document.getElementById('dropdownMenu').addEventListener('mouseleave', () => {
     }
   }, 200);
 });
-console.log("mouse enter")
+
 // Prevent dropdown menu from disappearing when mouse is over it
 document.getElementById('dropdownMenu').addEventListener('mouseenter', () => {
   document.getElementById('dropdownMenu').classList.remove('hidden');
 });
-console.log("mouse enter")
+
 // Handle category selection
 document.querySelectorAll('#dropdownMenu a').forEach(link => {
   link.addEventListener('click', (event) => {
@@ -267,7 +267,7 @@ document.querySelectorAll('#dropdownMenu a').forEach(link => {
           d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
           clip-rule="evenodd" />
       </svg>`;
-    console.log("mouse enter")
+   
     const gender = document.querySelector('[data-gender].active')?.getAttribute('data-gender') || null;
     const query = document.getElementById('searchBar').value;
 
@@ -360,3 +360,4 @@ cart.forEach(item => {
 });
 
 document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+
