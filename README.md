@@ -1,6 +1,6 @@
- Clothing Inventory Project
+ Clothing Inventory Store
 
-The Inventory Clothing Project is an application showcasing key functionalities such as filtering and searching products by name or category. This project is designed to demonstrate the flow of an e-commerce application from product discovery to checkout.
+The Inventory Clothing is an application showcasing key functionalities such as filtering and searching products by name or category. This project is designed to demonstrate the flow of an e-commerce application from product discovery to checkout.
 
 Key Features:
 Filter Products: Easily filter products based on different categories like gender or style
