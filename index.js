@@ -23,16 +23,21 @@ function parseCSV(data) {
   return items;
 }
 
+
 function displayItems(array) {
   const displayList = document.getElementById('display-list');
   displayList.innerHTML = '';
+
+
 
   array.forEach(item => {
     const card = document.createElement('div');
     card.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md');
 
+    card.setAttribute('data-id', item.id);
     const id = document.createElement('p');
-    id.classList.add('text-lg', 'font-bold', 'mb-2');
+    id.classList.add('text-lg', 'font-bold', 'mb-2', 'hidden');
+
     id.innerText = item.id;
 
     const name = document.createElement('p');
@@ -134,11 +139,34 @@ document.querySelectorAll('[data-gender]').forEach(button => {
     const query = document.getElementById('searchBar').value;
 
     document.querySelectorAll('[data-gender]').forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
+    // button.classList.add('active');
 
     loadAndDisplayItems('items.csv', gender, category !== 'All categories' ? category : null, query);
   });
 });
+
+// Handle click events on gender filter buttons
+// document.querySelectorAll('[data-gender]').forEach(button => {
+//   button.addEventListener('click', () => {
+//     const isActive = button.classList.contains('active');
+//     let gender = null;
+//     document.querySelectorAll('[data-gender]').forEach(btn => btn.classList.remove('active'));
+//     // Toggle active state
+//     if (isActive) {
+//       button.classList.remove('active');
+//     } else {
+
+//       button.classList.add('active');
+//       gender = button.getAttribute('data-gender');
+//     }
+
+//     const category = document.getElementById('dropdownButton').textContent.trim();
+//     const query = document.getElementById('searchBar').value;
+
+//     loadAndDisplayItems('items.csv', gender, category !== 'All categories' ? category : null, query);
+//   });
+// });
+
 
 document.getElementById('searchButton').addEventListener('click', () => {
   const query = document.getElementById('searchBar').value;
@@ -178,7 +206,7 @@ displayCart(cart);
 
 // When click 'Cart Icon'
 const sumCartItems = (array = []) => {
-  return array.length !=0? array.reduce((a, b) => a.subTotal + b.subTotal): 0;
+  return array.length != 0 ? array.reduce((a, b) => a.subTotal + b.subTotal) : 0;
 };
 
 // when click 'Buy now'
@@ -249,11 +277,6 @@ document.querySelectorAll('#dropdownMenu a').forEach(link => {
   });
 });
 
-const products = [
-  { id: 1, name: 'Throwback Hip Bag', price: 90.00, imageUrl: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg' },
-  { id: 2, name: 'Medium Stuff Satchel', price: 32.00, imageUrl: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg' }
-  // Add more products as needed
-];
 
 // const cart = [];
 
