@@ -1,0 +1,1 @@
+//class containing invetory array, check in items in the cart

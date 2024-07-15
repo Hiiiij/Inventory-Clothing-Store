@@ -4,3 +4,20 @@
       top: 1rem; 
       z-index: 50; 
     }; */
+
+  .bg-purple-100::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%; /* height of the blurred area */
+  backdrop-filter: blur(10px); 
+  background-color: rgba(165, 180, 252, 0.5); 
+  z-index: 2;
+  opacity: 0; /* Initially hide the blur effect */
+  transition: opacity 0.3s ease-in-out; 
+}
+.blur-on-scroll::before {
+  opacity: 1; /* Show the blur effect when the class is applied */
+}

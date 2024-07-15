@@ -23,6 +23,27 @@ function parseCSV(data) {
   return items;
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+
+  const bgBlur = document.querySelector('.bg-purple-100');
+
+  // Function to toggle blur class based on scroll position
+  function toggleBlurClass() {
+    if (window.scrollY > 100) { // Horizontal scroll position 
+      bgBlur.classList.add('blur-on-scroll');
+    } else {
+      bgBlur.classList.remove('blur-on-scroll');
+    }
+  }
+
+  // Add scroll event listener to toggle blur class
+  window.addEventListener('scroll', toggleBlurClass);
+
+  // Initial call to set the initial state based on scroll position
+  toggleBlurClass();
+});
+
+
 
 function displayItems(array) {
   const displayList = document.getElementById('display-list');
@@ -30,43 +51,43 @@ function displayItems(array) {
 
 
 
-  
+
   array.forEach(item => {
     const card = document.createElement('div');
     card.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md');
 
     card.setAttribute('data-id', item.id);
-    
+
     const id = document.createElement('p');
     id.classList.add('text-lg', 'font-bold', 'mb-2', 'hidden');
 
     id.innerText = item.id;
-    
+
     const name = document.createElement('p');
     name.classList.add('text-lg', 'font-bold', 'mb-2');
     name.innerText = item.name;
-    
+
     const category = document.createElement('p');
     category.classList.add('text-gray-700', 'mb-2');
     category.innerText = `Category: ${item.category}`;
-    
+
     const color = document.createElement('p');
     color.classList.add('text-gray-700', 'mb-2');
     color.innerText = `Color: ${item.color}`;
-    
+
     const size = document.createElement('p');
     size.classList.add('text-gray-700', 'mb-2');
     size.innerText = `Size: ${item.size}`;
-    
+
     const price = document.createElement('p');
     price.classList.add('text-purple-500', 'font-bold');
     price.innerText = `Price: $${item.price}`;
-    
+
     const btn = document.createElement('button');
     btn.classList.add('text-lg', 'font-bold', 'mb-2', 'buy-now');
     btn.id = item.id;
     btn.innerText = "Buy now";
-    
+
     card.appendChild(id);
     card.appendChild(name);
     card.appendChild(category);
@@ -74,7 +95,7 @@ function displayItems(array) {
     card.appendChild(size);
     card.appendChild(price);
     card.appendChild(btn);
-    
+
     displayList.appendChild(card);
 
   });
@@ -86,7 +107,7 @@ function displayItems(array) {
     buyNow[i].addEventListener('click', (event) => {
       addToCart(id)
     })
-}
+  }
 }
 
 function filterItems(items, query) {
@@ -144,6 +165,17 @@ function loadAndDisplayItems(url, gender = null, category = null, query = null) 
   });
 }
 
+function toggleBtn() {
+
+  document.getElementById("shoppingCartList").style.display = "none";
+}
+
+//event handler for close-btn on modal
+document.getElementById('closeCart').onclick = toggleBtn
+
+
+
+
 // Initial load of all items from CSV
 loadAndDisplayItems('items.csv');
 
@@ -196,25 +228,25 @@ const cart = [];
 
 // When click 'Cart Icon'
 const displayCart = (cart) => {
-  const cartItems = document.getElementById('cart');
-  cartItems.innerHTML = '';
-  
+  const cartItem = document.getElementById('cart');
+  cartItem.innerHTML = '';
+
   cart.map(item => {
     const oneItemInfo = document.createElement('div');
     const oneItemPrice = document.createElement('div');
     const oneItemQuantity = document.createElement('div');
     const oneItemSubtotal = document.createElement('div');
-    
+
     oneItemInfo.textContent = `${item.name}, ${item.category}, ${item.color}, ${item.size}`;
     oneItemPrice.textContent = `${item.price}`;
     oneItemQuantity.textContent = `${item.quantity}`;
     oneItemSubtotal.textContent = `${item.subTotal}`;
-    
+
     cartItems
-    .appendChild(oneItemInfo)
-    .appendChild(oneItemPrice)
-    .appendChild(oneItemQuantity)
-    .appendChild(oneItemSubtotal);
+      .appendChild(oneItemInfo)
+      .appendChild(oneItemPrice)
+      .appendChild(oneItemQuantity)
+      .appendChild(oneItemSubtotal);
 
   });
 };
@@ -229,16 +261,21 @@ const sumCartItems = (array = []) => {
 // when click 'Buy now'
 
 const addToCart = (newItem) => { // it is a number, not the object
-  let itemFound = cart.findIndex((item) => item.id === newItem); 
+  let itemFound = cart.findIndex((item) => item.id === newItem);
   let inventoryItem = inventory.find((item) => item.id === newItem);
 
   if (itemFound !== -1) {
-    cart[itemFound] = {...cart[itemFound], quantity: cart[itemFound].quantity+1, subTotal: cart[itemFound].subTotal += Number(inventoryItem.price)}
+    cart[itemFound] = { ...cart[itemFound], quantity: cart[itemFound].quantity + 1, subTotal: cart[itemFound].subTotal += Number(inventoryItem.price) }
   } else {
-    let quantity = 1;    
+    let quantity = 1;
     cart.push({ ...inventoryItem, quantity: quantity, subTotal: Number(inventoryItem.price) });
   }
-  console.log(cart);
+
+
+  const addToBasketElement = document.getElementById("addTobasket")
+
+  addToBasketElement.classList.remove('hidden')
+  addToBasketElement.innerHTML = cart.length;
   displayCart(cart);
 };
 
@@ -306,7 +343,7 @@ function renderProducts() {
 
   products.forEach(product => {
     const card = document.createElement('div');
-    card.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md');
+    card.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow-md');
 
     const image = document.createElement('img');
     image.src = product.imageUrl;

@@ -10,113 +10,61 @@
   <title>Clothing Inventory</title>
 </head>
 
-<body class="bg-purple-100 min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-7xl p-4 sm:p-6 md:p-8 lg:p-12 mx-auto">
-    <header class="max-w-10xl flex tems-center justify-center">
-      <h1 class="text-3xl font-bold">Clothing Store Inventory</h1>
+<body class="bg-purple-100 min-h-screen flex flex-col items-center justify-center w-full ">
+  <div class="w-full max-w-10xl p-4 sm:p-6 md:p-8 lg:p-12 mx-auto">
+    <header id="header" class="max-w-10xl flex items-center justify-between px-4 py-2 sticky top-0 z-20">
+      <h1 class="text-3xl font-bold mx-auto">Unique Pick Boutique</h1>
       <!-- shopping cart icon -->
-      <div class="relative py-2">
-        <div class="t-0 absolute left-3">
-          <p class="flex h-2 w-2 items-center justify-center rounded-full bg-purple-500 p-3 text-xs text-white">3</p>
+      <div class="relative items-center">
+        <div class="absolute top-0 right-0">
+          <!-- circle icon -->
+          <span id="addTobasket"
+            class="flex h-2 w-2 items-center justify-center rounded-full bg-purple-500 p-3 py-0.2 text-xs text-white hidden transform -translate-y-1">
+          </span>
         </div>
+        <!-- //basket icon -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="file: mt-4 h-6 w-6">
+          class="fill-current mt-4 h-6 w-6">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
         </svg>
       </div>
+
     </header>
 
-    <div class="bg-purple-100 flex justify-center p-12" style="min-height: 600px">
 
-      <!-- <div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true"> -->
-      <!-- Background backdrop -->
-      <!-- <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-      
-        <div class="fixed inset-0 overflow-hidden">
-          <div class="absolute inset-0 overflow-hidden">
-            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">  -->
-      <!-- Slide-over panel -->
-      <!-- <div class="pointer-events-auto w-screen max-w-md">
-                <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                  <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                    <div class="flex items-start justify-between">
-                      <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
-                      <div class="ml-3 flex h-7 items-center">
-                        <button type="button" id="closeCart" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
-                          <span class="absolute -inset-0.5"></span>
-                          <span class="sr-only">Close panel</span>
-                          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-      
-                    <div class="mt-8" id="cartItems"> -->
-      <!-- Cart items will be dynamically inserted here -->
-      <!-- </div>
-                  </div>
-      
-                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
-                    <div class="flex justify-between text-base font-medium text-gray-900">
-                      <p>Subtotal</p>
-                      <p id="subtotal">$0.00</p>
-                    </div>
-                    <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                    <div class="mt-6">
-                      <a href="#" id="checkoutBtn"
-                        class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
-                    </div>
-                    <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
-                      <p>
-                        or
-                        <button type="button" id="continueShopping" class="font-medium text-indigo-600 hover:text-indigo-500">
-                          Continue Shopping
-                          <span aria-hidden="true"> &rarr;</span>
-                        </button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+    <div class="bg-purple-300 p-8 flex items-center w-full flex-col">
+
+      <!-- search fliter -->
+      <div id="search" class="flex flex-wrap justify-between flex-row sticky top-20 z-20">
+        <input type="search" id="searchBar" name="query" placeholder="Search by name"
+          class="flex-1 h-10 px-4 m-1 text-gray-700 placeholder-gray-400  border-none appearance-none lg:h-12 dark:text-gray-400 focus:outline-none focus:placeholder-transparent focus:ring-0">
+        <button type="button" id="searchButton"
+          class="bg-purple-500 hover:bg-purple-700 text-white flex items-center justify-center w-full md:w-12 h-12 p-2 m-1 transition-colors duration-300 transform rounded-lg focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+
+      </div>
+
+      <!-- buttons for filtering products -->
+      <div class="flex-col md:flex-col items-center">
+        <div class="py-4 md:py-8 md:px-12 flex flex-wrap items-center sticky top-40 z-20">
+
+
+          <div class="gender-btns justify-center">
+            <button type="button" data-gender="Women"
+              class="border-4 border-black text-black bg-transparent hover:bg-purple-500 hover:text-white focus:bg-black focus:text-white rounded-md text-base font-medium px-5 py-2 text-center me-3 mb-3">
+              Woman
+            </button>
+            <button type="button" data-gender="Men"
+              class="border-4 border-black text-black bg-transparent hover:bg-purple-500 hover:text-white focus:bg-black focus:text-white rounded-md text-base font-medium px-5 py-2 text-center me-3 mb-3">
+              Men
+            </button>
           </div>
-        </div>
-      </div> -->
-
-
-      <div class="bg-purple-300 p-8">
-
-        <!-- search fliter -->
-        <div id="search" class="flex flex-wrap justify-between md:flex-row mb-4">
-          <input type="search" id="searchBar" name="query" placeholder="Search by name or category"
-            class="flex-1 h-10 px-4 m-1 text-gray-700 placeholder-gray-400  border-none appearance-none lg:h-12 dark:text-gray-400 focus:outline-none focus:placeholder-transparent focus:ring-0">
-          <button type="button" id="searchButton"
-            class="bg-purple-500 hover:bg-purple-700 text-white flex items-center justify-center w-full p-2 m-1 transition-colors duration-300 transform rounded-lg lg:w-12 lg:h-12 lg:p-0 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-              class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </button>
-        </div>
-
-        <!-- buttons for cathegory search --> -
-        <div class="flex items-center justify-center py-4 md:py-8 md:px-12 flex-wrap">
-
-
-
-          <button type="button" data-gender="Women"
-            class="border-4 border-black text-black bg-transparent hover:bg-purple-500 hover:text-white focus:bg-black focus:text-white rounded-md text-base font-medium px-5 py-2 text-center me-3 mb-3">
-            Woman
-          </button>
-          <button type="button" data-gender="Men"
-            class="border-4 border-black text-black bg-transparent hover:bg-purple-500 hover:text-white focus:bg-black focus:text-white rounded-md text-base font-medium px-5 py-2 text-center me-3 mb-3">
-            Men
-          </button>
-
 
           <div class="relative">
             <button type="button" id="dropdownButton"
@@ -128,8 +76,6 @@
                   clip-rule="evenodd" />
               </svg>
             </button>
-
-
             <div id="dropdownMenu"
               class="hidden absolute bg-white text-base z-50 list-none divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
               <ul class="py-2" aria-labelledby="dropdownButton">
@@ -150,21 +96,86 @@
                 </li>
                 <li><a href="#" data-category="Accessories"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Accesories</a>
+
                 </li>
 
               </ul>
             </div>
           </div>
-          <!-- //shoping expended cart placeholder -->
-          <div id="cart"></div>
-          <div id="total-price"></div>
-          <div id="display-list" class="grid grid-cols-2 md:grid-cols-3 gap-4 py-12">
+        </div>
 
+        <!-- //shoping expended cart placeholder -->
+        <div id="shoppingCartList" class="relative z-50" aria-labelledby="slide-over-title" role="dialog"
+          aria-modal="true">
+          <!-- Background backdrop -->
+          <div class="fixed inset-0 bg-purple-100 bg-opacity-85 transition-opacity" aria-hidden="true"></div>
+
+          <div class="fixed inset-0 overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden">
+              <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <!-- Slide-over panel -->
+                <div class="pointer-events-auto w-screen max-w-md">
+                  <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                    <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                      <div class="flex items-start justify-between">
+                        <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                        <div class="ml-3 flex h-7 items-center">
+                          <button type="button" id="closeCart"
+                            class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+                            <span class="absolute -inset-0.5"></span>
+                            <span class="sr-only">Close panel</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                              stroke="currentColor" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="mt-8" id="cartItems">
+                        <div id="cart"></div>
+                        <div id="total-price"></div>
+                        <!-- Cart items will be dynamically inserted here -->
+                      </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                      <div class="flex justify-between text-base font-medium text-gray-900">
+                        <p>Subtotal</p>
+                        <p id="subtotal">$0.00</p>
+                      </div>
+                      <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                      <div class="mt-6">
+                        <a href="#" id="checkoutBtn"
+                          class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                      </div>
+                      <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                        <p>
+                          or
+                          <button type="button" id="continueShopping"
+                            class="font-medium text-indigo-600 hover:text-indigo-500">
+                            Continue Shopping
+                            <span aria-hidden="true"> &rarr;</span>
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
+        <div id="cart"></div>
+        <!-- <div id="total-price"></div> -->
+        <div id="display-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-12 p-6 ">
 
+        </div>
       </div>
+
+
+    </div>
 </body>
 
-</html>`
+</html>
