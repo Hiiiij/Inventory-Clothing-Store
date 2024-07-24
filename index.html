@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="index.js" defer></script>
+  <script type="module" src="index.js" defer></script>
   <title>Clothing Inventory</title>
 </head>
 
@@ -23,11 +23,13 @@
           </span>
         </div>
         <!-- //basket icon -->
+        <button onclick="testing()">hi</button>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="fill-current mt-4 h-6 w-6">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
         </svg>
+      
       </div>
 
     </header>
@@ -103,9 +105,10 @@
             </div>
           </div>
         </div>
+      </div>
 
         <!-- //shoping expended cart placeholder -->
-        <div id="shoppingCartList" class="relative z-50" aria-labelledby="slide-over-title" role="dialog"
+        <div id="shoppingCartList" class="relative z-50 hidden" aria-labelledby="slide-over-title" role="dialog"
           aria-modal="true">
           <!-- Background backdrop -->
           <div class="fixed inset-0 bg-purple-100 bg-opacity-85 transition-opacity" aria-hidden="true"></div>
@@ -132,11 +135,11 @@
                         </div>
                       </div>
 
-                      <div class="mt-8" id="cartItems">
+                      <!-- <div class="mt-8" id="cartItems">
                         <div id="cart"></div>
-                        <div id="total-price"></div>
+                        <div id="total-price"></div> -->
                         <!-- Cart items will be dynamically inserted here -->
-                      </div>
+                      <!-- </div> -->
                     </div>
 
                     <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -169,13 +172,12 @@
 
         <div id="cart"></div>
         <!-- <div id="total-price"></div> -->
-        <div id="display-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-12 p-6 ">
-
-        </div>
-      </div>
+        <div id="display-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-12 p-6 "></div>
+      
 
 
     </div>
+  </div>
 </body>
 
 </html>
